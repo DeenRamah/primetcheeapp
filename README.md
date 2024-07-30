@@ -5,14 +5,15 @@ A healthcare patient management application that allows patients to easily regis
 If you're getting started and need assistance or face any bugs, join our active Discord community with over **34k+** members. It's a place where people help each other out.
 <br>
 
-<h1>These is the registration page</h1>
-<img src="primetchee/public/po.jpg"></img>
+# Registration Page
+![These is the registration page](public/po.jpg)
 
-<h1>These is the page for scheduling appontment</h1>
-<img src="primetchee/public/pop.jpg"></img>
+# Scheduling Appointment Page
+![These is the page for scheduling appointment](public/pop.jpg)
 
-<h1>These is the rsuccess page</h1>
-<img src="primetchee/public/p.jpg"></img>
+# Success Page
+![These is the success page](public/p.jpg)
+
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
