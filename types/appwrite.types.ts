@@ -33,4 +33,5 @@ export interface Appointment extends Models.Document {
   note: string;
   userId: string;
   cancellationReason: string | null;
+  timeZone?: string;
 }

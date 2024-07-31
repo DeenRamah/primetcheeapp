@@ -50,6 +50,7 @@ export const AppointmentForm = ({
       reason: appointment ? appointment.reason : "",
       note: appointment?.note || "",
       cancellationReason: appointment?.cancellationReason || "",
+      timeZone: appointment?.timeZone || "America/New_York", // Add default timeZone
     },
   });
 
@@ -80,6 +81,7 @@ export const AppointmentForm = ({
           reason: values.reason!,
           status: status as Status,
           note: values.note,
+          timeZone: values.timeZone, // Include timeZone when creating an appointment
         };
 
         const newAppointment = await createAppointment(appointment);
@@ -91,7 +93,7 @@ export const AppointmentForm = ({
           );
         }
       } else {
-        const appointmentToUpdate = {
+        const appointmentToUpdate: UpdateAppointmentParams = {
           userId,
           appointmentId: appointment?.$id!,
           appointment: {
@@ -99,8 +101,10 @@ export const AppointmentForm = ({
             schedule: new Date(values.schedule),
             status: status as Status,
             cancellationReason: values.cancellationReason,
+            timeZone: values.timeZone, // Include timeZone when updating an appointment
           },
           type,
+          timeZone: values.timeZone, // Add timeZone to the appointmentToUpdate object
         };
 
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
@@ -125,7 +129,7 @@ export const AppointmentForm = ({
       buttonLabel = "Schedule Appointment";
       break;
     default:
-      buttonLabel = "Submit Apppointment";
+      buttonLabel = "Submit Appointment";
   }
 
   return (
@@ -174,27 +178,23 @@ export const AppointmentForm = ({
               dateFormat="MM/dd/yyyy  -  h:mm aa"
             />
 
-            <div
-              className={`flex flex-col gap-6  ${type === "create" && "xl:flex-row"}`}
-            >
-              <CustomFormField
-                fieldType={FormFieldType.TEXTAREA}
-                control={form.control}
-                name="reason"
-                label="Appointment reason"
-                placeholder="Annual montly check-up"
-                disabled={type === "schedule"}
-              />
+            <CustomFormField
+              fieldType={FormFieldType.TEXTAREA}
+              control={form.control}
+              name="reason"
+              label="Appointment reason"
+              placeholder="Annual monthly check-up"
+              disabled={type === "schedule"}
+            />
 
-              <CustomFormField
-                fieldType={FormFieldType.TEXTAREA}
-                control={form.control}
-                name="note"
-                label="Comments/notes"
-                placeholder="Prefer afternoon appointments, if possible"
-                disabled={type === "schedule"}
-              />
-            </div>
+            <CustomFormField
+              fieldType={FormFieldType.TEXTAREA}
+              control={form.control}
+              name="note"
+              label="Comments/notes"
+              placeholder="Prefer afternoon appointments, if possible"
+              disabled={type === "schedule"}
+            />
           </>
         )}
 
@@ -207,6 +207,40 @@ export const AppointmentForm = ({
             placeholder="Urgent meeting came up"
           />
         )}
+
+        <CustomFormField
+          fieldType={FormFieldType.SELECT}
+          control={form.control}
+          name="timeZone"
+          label="Time Zone"
+          placeholder="Select your time zone"
+        >
+          <SelectItem value="Africa/Nairobi">Africa/Nairobi</SelectItem>
+          <SelectItem value="America/New_York">America/New_York</SelectItem>
+          <SelectItem value="Europe/London">Europe/London</SelectItem>
+          <SelectItem value="Africa/Lagos">Africa/Lagos</SelectItem>
+          <SelectItem value="Asia/Tokyo">Asia/Tokyo</SelectItem>
+          <SelectItem value="Asia/Singapore">Asia/Singapore</SelectItem>
+          <SelectItem value="Australia/Sydney">Australia/Sydney</SelectItem>
+          <SelectItem value="Europe/Berlin">Europe/Berlin</SelectItem>
+          <SelectItem value="Europe/Paris">Europe/Paris</SelectItem>
+          <SelectItem value="America/Los_Angeles">
+            America/Los_Angeles
+          </SelectItem>
+          <SelectItem value="America/Chicago">America/Chicago</SelectItem>
+          <SelectItem value="America/Denver">America/Denver</SelectItem>
+          <SelectItem value="Asia/Shanghai">Asia/Shanghai</SelectItem>
+          <SelectItem value="Asia/Hong_Kong">Asia/Hong_Kong</SelectItem>
+          <SelectItem value="Europe/Moscow">Europe/Moscow</SelectItem>
+          <SelectItem value="Africa/Cairo">Africa/Cairo</SelectItem>
+          <SelectItem value="America/Sao_Paulo">America/Sao_Paulo</SelectItem>
+          <SelectItem value="Asia/Seoul">Asia/Seoul</SelectItem>
+          <SelectItem value="Europe/Amsterdam">Europe/Amsterdam</SelectItem>
+          <SelectItem value="Asia/Dubai">Asia/Dubai</SelectItem>
+          <SelectItem value="Europe/Zurich">Europe/Zurich</SelectItem>
+
+          {/* Add more time zones as needed */}
+        </CustomFormField>
 
         <SubmitButton
           isLoading={isLoading}
