@@ -6,6 +6,7 @@ If you're getting started and need assistance or face any bugs, join our active 
 <br>
 
 # Registration Page
+<<<<<<< HEAD
 ![These is the registration page](public/po.jpg)
 
 # Scheduling Appointment Page
@@ -14,6 +15,18 @@ If you're getting started and need assistance or face any bugs, join our active 
 # Success Page
 ![These is the success page](public/p.jpg)
 
+=======
+
+![These is the registration page](public/po.jpg)
+
+# Scheduling Appointment Page
+
+![These is the page for scheduling appointment](public/pop.jpg)
+
+# Success Page
+
+![These is the success page](public/p.jpg)
+>>>>>>> 42e7857 (commit)
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -923,44 +936,7 @@ export const IdentificationTypes = [
   "Voter ID Card",
 ];
 
-export const Doctors = [
-  {
-    image: "/assets/images/dr-green.png",
-    name: "John Green",
-  },
-  {
-    image: "/assets/images/dr-cameron.png",
-    name: "Leila Cameron",
-  },
-  {
-    image: "/assets/images/dr-livingston.png",
-    name: "David Livingston",
-  },
-  {
-    image: "/assets/images/dr-peter.png",
-    name: "Evan Peter",
-  },
-  {
-    image: "/assets/images/dr-powell.png",
-    name: "Jane Powell",
-  },
-  {
-    image: "/assets/images/dr-remirez.png",
-    name: "Alex Ramirez",
-  },
-  {
-    image: "/assets/images/dr-lee.png",
-    name: "Jasmine Lee",
-  },
-  {
-    image: "/assets/images/dr-cruz.png",
-    name: "Alyana Cruz",
-  },
-  {
-    image: "/assets/images/dr-sharma.png",
-    name: "Hardik Sharma",
-  },
-];
+export const Doctors = [];
 
 export const StatusIcon = {
   scheduled: "/assets/icons/check.svg",
