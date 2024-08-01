@@ -22,6 +22,18 @@ import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { Form } from "../ui/form";
 
+// Update getAppointmentSchema to include timeZone
+const getAppointmentSchema = (type: "create" | "schedule" | "cancel") => {
+  return z.object({
+    primaryPhysician: z.string().nonempty("Primary physician is required"),
+    schedule: z.date(),
+    reason: type !== "cancel" ? z.string().nonempty("Reason is required") : z.string().optional(),
+    note: z.string().optional(),
+    cancellationReason: type === "cancel" ? z.string().nonempty("Cancellation reason is required") : z.string().optional(),
+    timeZone: z.string().nonempty("Time zone is required"), // Include timeZone in the schema
+  });
+};
+
 export const AppointmentForm = ({
   userId,
   patientId,
@@ -44,9 +56,7 @@ export const AppointmentForm = ({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
       primaryPhysician: appointment ? appointment?.primaryPhysician : "",
-      schedule: appointment
-        ? new Date(appointment?.schedule!)
-        : new Date(Date.now()),
+      schedule: appointment ? new Date(appointment?.schedule!) : new Date(Date.now()),
       reason: appointment ? appointment.reason : "",
       note: appointment?.note || "",
       cancellationReason: appointment?.cancellationReason || "",
@@ -54,9 +64,7 @@ export const AppointmentForm = ({
     },
   });
 
-  const onSubmit = async (
-    values: z.infer<typeof AppointmentFormValidation>
-  ) => {
+  const onSubmit = async (values: z.infer<typeof AppointmentFormValidation>) => {
     setIsLoading(true);
 
     let status;
@@ -223,9 +231,7 @@ export const AppointmentForm = ({
           <SelectItem value="Australia/Sydney">Australia/Sydney</SelectItem>
           <SelectItem value="Europe/Berlin">Europe/Berlin</SelectItem>
           <SelectItem value="Europe/Paris">Europe/Paris</SelectItem>
-          <SelectItem value="America/Los_Angeles">
-            America/Los_Angeles
-          </SelectItem>
+          <SelectItem value="America/Los_Angeles">America/Los_Angeles</SelectItem>
           <SelectItem value="America/Chicago">America/Chicago</SelectItem>
           <SelectItem value="America/Denver">America/Denver</SelectItem>
           <SelectItem value="Asia/Shanghai">Asia/Shanghai</SelectItem>
